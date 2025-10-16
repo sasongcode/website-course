@@ -161,7 +161,7 @@ export default function Home() {
       </section>
 
       {/* Section Stats */}
-      <section className="grid md:grid-cols-4 gap-6 text-center px-5 py-4">
+      <section className="grid md:grid-cols-4 gap-6 text-center px-12 py-4">
         {stats.map((stat, i) => (
           <div
             key={i}
