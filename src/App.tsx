@@ -29,7 +29,6 @@ const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
-      // { path: "/", element: <Home /> },
       { path: "/courses", element: <Courses /> },
       { path: "/courses/:id", element: <CourseDetail /> },
       { path: "/courses/checkout/:id", element: <CheckoutCourse />},
@@ -37,7 +36,6 @@ const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       { path: "/package/:id", element: <Checkout /> },
       { path: "/package/checkout/:id", element: <CheckoutPackage /> },
-      // { path: "/faq", element: <FAQ /> },
       { path: "/blog", element: <Blog /> },
       { path: "/blog/:id", element: <BlogDetail /> }
     ],
@@ -45,5 +43,9 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />
+  return (
+    <>
+    <RouterProvider router={router} />
+    </>
+  )
 }
