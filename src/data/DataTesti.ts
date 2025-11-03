@@ -1,7 +1,7 @@
 export const testimonies = [
     {
       id: 1,
-      name: "Yessa Pratama",
+      name: "Ahmad Damar",
       role: "Mahasiswa IT",
       comment:
         "SongKoding membantu saya memahami React & Laravel dengan cara yang menyenangkan. Sekarang saya lebih percaya diri membangun aplikasi sendiri!",
@@ -9,7 +9,7 @@ export const testimonies = [
     },
     {
       id: 2,
-      name: "Ahmad Damar",
+      name: "Bagus Wiryawan",
       role: "Frontend Developer",
       comment:
         "Materinya lengkap dan terstruktur. Saya jadi lebih paham tentang state management di React.",
@@ -17,7 +17,7 @@ export const testimonies = [
     },
     {
       id: 3,
-      name: "Rasya Alvino",
+      name: "Rega Nova",
       role: "Backend Developer",
       comment:
         "Laravel yang dulunya terasa rumit, sekarang lebih mudah saya pahami. Terima kasih SongKoding!",
@@ -33,7 +33,7 @@ export const testimonies = [
     },
     {
       id: 5,
-      name: "Muhammad Efendi",
+      name: "Kevin Bagus",
       role: "Data Analyst",
       comment:
         "Bagus banget! Penjelasannya sederhana tapi mendalam, cocok untuk semua level.",
