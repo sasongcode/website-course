@@ -6,7 +6,6 @@ import {
   Users,
   CheckCircle,
   BookOpen,
-  Laptop,
   Award,
   Github,
   Clock,
@@ -25,6 +24,7 @@ import {
   Rocket,
   AwardIcon,
   Instagram,
+  Shield,
 } from "lucide-react";
 import { testimonies } from "../data/DataTesti";
 import { useEffect, useState } from "react";
@@ -35,6 +35,7 @@ import { courses } from "../data/DataCourses";
 type Stat = {
   icon: React.ElementType;
   label: string;
+  color: string;
 };
 
 type packs = {
@@ -45,10 +46,10 @@ type packs = {
 
 export default function Home() {
   const stats: Stat[] = [
-    { icon: Users, label: "2500+ Siswa" },
-    { icon: BookOpen, label: "30+ Kursus" },
-    { icon: Laptop, label: "Belajar Online" },
-    { icon: Award, label: "Mentor Berpengalaman" },
+    { icon: Award, label: "Kualitas Tinggi", color: "text-white" },
+    { icon: Users, label: "10K+ Pengguna", color: "text-rose-500" },
+    { icon: Clock, label: "Cepat & Tepat", color: "text-sky-500" },
+    { icon: Shield, label: "Keamanan Terjamin", color: "text-yellow-500" },
   ];
 
   const fullText =
@@ -61,7 +62,7 @@ export default function Home() {
       setDisplayedText(fullText.slice(0, i + 1));
       i++;
       if (i === fullText.length) clearInterval(interval);
-    }, 80); // kecepatan ketik (ms)
+    }, 80);
     return () => clearInterval(interval);
   }, []);
 
@@ -87,7 +88,7 @@ export default function Home() {
         {/* Content */}
         <div className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-40">
           <motion.h1
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-sans font-bold leading-snug mb-7 whitespace-pre-wrap tracking-tight"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-sans font-bold leading-snug mb-4 sm:md-7 whitespace-pre-wrap tracking-tight"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
@@ -117,7 +118,7 @@ export default function Home() {
           </motion.h1>
 
           <motion.p
-            className="text-sm sm:text-base md:text-lg font-semibold text-gray-200 max-w-4xl mx-auto px-12 mb-3 leading-relaxed"
+            className="text-xs sm:text-base md:text-lg font-semibold text-gray-300 max-w-4xl mx-auto px-12 mb-3 sm:mb-4 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 6, duration: 0.8 }}
@@ -127,7 +128,7 @@ export default function Home() {
           </motion.p>
 
           <motion.h3
-            className="text-sm sm:text-base md:text-lg font-bold max-w-2xl mx-auto mb-8 leading-relaxed tracking-tight"
+            className="text-sm sm:text-base md:text-lg font-bold max-w-2xl mx-auto mb-4 sm:mb-7 leading-relaxed tracking-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 7, duration: 0.8 }}
@@ -144,14 +145,14 @@ export default function Home() {
           >
             <a
               href="#package"
-              className="flex items-center gap-2 px-5 py-2.5 bg-yellow-400 font-medium text-sm md:text-base text-black rounded-full shadow hover:bg-yellow-600 hover:scale-[0.98] transition-all"
+              className="flex items-center gap-2 px-5 py-2.5 bg-yellow-400 font-medium text-sm md:text-base text-black rounded-full shadow hover:bg-indigo-700 duration-500 hover:duration-500 hover:text-white hover:scale-105 transition-all"
             >
               <UserRoundPlus size={18} />
               Gabung Program
             </a>
             <Link
               to="/courses"
-              className="flex items-center gap-2 px-5 py-2.5 font-medium text-sm md:text-base border border-white text-white rounded-full shadow hover:bg-white hover:text-black hover:scale-[0.98] transition"
+              className="flex items-center gap-2 px-5 py-2.5 font-medium text-sm md:text-base border border-white text-white rounded-full shadow hover:bg-white hover:text-black duration-500 hover:duration-500 hover:scale-105 transition"
             >
               <Layers size={16} />
               Lihat Kursus
@@ -161,14 +162,25 @@ export default function Home() {
       </section>
 
       {/* Section Stats */}
-      <section className="grid md:grid-cols-4 gap-6 text-center px-12 py-4">
+      <section className="grid md:grid-cols-4 gap-6 text-center px-12 py-1 sm:py-4">
         {stats.map((stat, i) => (
           <div
             key={i}
-            className="p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition"
+            className="group relative p-6 bg-white rounded-xl border border-zinc-200 shadow-md
+                 hover:shadow-lg hover:-translate-y-2 hover:border-indigo-400/20
+                 transition-all duration-500
+                 before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r
+                 before:from-indigo-400/10 before:to-indigo-500/10 before:opacity-0
+                 group-hover:before:opacity-100 before:transition-all before:duration-500"
           >
-            <stat.icon size={40} className="mx-auto text-zinc-600 mb-3" />
-            <p className="font-bold text-zinc-700">{stat.label}</p>
+            <stat.icon
+              size={40}
+              className={`mx-auto text-zinc-600 mb-3 relative z-10
+                   transition-transform duration-500 group-hover:scale-x-[-1] ${stat.color}`}
+            />
+            <p className="font-bold text-zinc-700 relative z-10">
+              {stat.label}
+            </p>
           </div>
         ))}
       </section>
@@ -177,24 +189,24 @@ export default function Home() {
       <section className="max-w-6xl mx-auto px-6 py-18">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Gambar di kiri */}
-          <div className="flex justify-center md:justify-end">
+          <div className="flex justify-center sm:me-6 md:justify-end">
             <img
-              src="https://img.clipart-library.com/24/1c68315a-4483-4bb0-9c35-a1ceb064642d.png"
+              src="https://thumbs.dreamstime.com/b/unhappy-sad-developer-programmer-man-stress-coding-software-unhappy-sad-developer-programmer-man-stress-coding-software-254551966.jpg"
               alt="Programmer Gagal"
-              className="w-full md:w-[500px] h-auto object-cover rounded-3xl shadow-lg"
+              className="w-full md:w-[500px] sm:h-auto object-cover rounded-3xl shadow-lg"
             />
           </div>
 
           {/* Card di kanan */}
           <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-zinc-800">
-              Kenapa Banyak yang Gagal Jadi{" "}
-              <span className="text-yellow-400">Programmer</span>?
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-800">
+              Kenapa Banyak Orang yang Gagal Jadi{" "}
+              <span className="text-yellow-400">Programmer?</span>
             </h2>
 
             {/* Kalimat 1 */}
             <div className="flex items-start space-x-3">
-              <span className="bg-yellow-400 w-4 h-2 rounded-full mt-3"></span>
+              <span className="bg-yellow-400 w-9 h-2 md:w-5 rounded-full mt-3"></span>
               <p className="text-gray-600 text-md leading-relaxed">
                 <span className="text-lg font-semibold">
                   Materinya berceceran di mana-mana.
@@ -206,7 +218,7 @@ export default function Home() {
 
             {/* Kalimat 2 */}
             <div className="flex items-start space-x-3">
-              <span className="bg-yellow-400 w-4 h-2 rounded-full mt-3"></span>
+              <span className="bg-yellow-400 w-9 h-2 md:w-5 rounded-full mt-3"></span>
               <p className="text-gray-600 text-md leading-relaxed">
                 <span className="text-lg font-semibold">
                   Sering mulai ragu sama diri sendiri.
@@ -218,7 +230,7 @@ export default function Home() {
 
             {/* Kalimat 3 */}
             <div className="flex items-start space-x-3">
-              <span className="bg-yellow-400 w-5 h-2 rounded-full mt-3"></span>
+              <span className="bg-yellow-400 w-12 h-2 md:w-7 rounded-full mt-3"></span>
               <p className="text-gray-600 text-md leading-relaxed">
                 <span className="text-lg font-semibold">
                   Bukan cuma yang kuliah IT atau ikut bootcamp mahal yang berhak
@@ -232,34 +244,91 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Apa itu SongKoding? */}
+      <section className="max-w-7xl mx-auto px-6 py-7">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 to-yellow-500/10 rounded-3xl blur-2xl"></div>
+            <img
+              src="/darkbrand.png"
+              alt="Apa itu SongKoding"
+              className="relative rounded-3xl ms-4 w-5/6 md:ms-10"
+            />
+          </div>
+
+          {/* Teks */}
+          <div className="me-10">
+            <h4 className="text-sm font-semibold mb-2 text-indigo-600 tracking-wide">
+              Tentang Kami
+            </h4>
+            <h2 className="text-3xl font-extrabold text-zinc-800 mb-4 leading-tight">
+              Apa itu <span className="text-yellow-400">SongKoding?</span>
+            </h2>
+            <p className="text-[15px] text-zinc-600 leading-snug mb-6">
+              <span className="font-semibold text-zinc-800">SongKoding</span>{" "}
+              adalah platform kursus online yang dirancang untuk membantu siapa
+              pun belajar pemrograman dengan mudah, interaktif, dan berbasis
+              proyek nyata. Kami percaya bahwa belajar coding tidak harus rumit
+              — cukup dimulai dari langkah kecil dan dilakukan secara konsisten.
+              Dengan materi yang terus diperbarui, mentor berpengalaman, dan
+              komunitas yang suportif, SongKoding menjadi tempat terbaik bagi
+              pelajar, mahasiswa, maupun profesional yang ingin meningkatkan
+              keterampilan digital mereka.
+            </p>
+
+            <Link
+              to="/courses"
+              className="mt-3 px-6 py-2.5 bg-indigo-600 text-white rounded-full font-semibold text-sm shadow-md hover:bg-yellow-500 hover:shadow-lg duration-500 hover:duration-500 hover:text-black hover:scale-[1.02] transition-all"
+            >
+              Mulai Belajar Sekarang
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Kenapa Pilih Kami */}
-      <div className="max-w-7xl mx-auto px-6 py-16 space-y-20 text-center">
-        <h3 className="flex justify-center items-center gap-2 text-3xl font-bold text-zinc-700 mb-12">
+      <div className="max-w-7xl mx-auto px-6 py-16 space-y-14 text-center">
+        <h3 className="flex justify-center items-center gap-2 text-xl md:text-3xl font-bold text-zinc-700 mb-10">
           Kenapa Pilih <span className="text-yellow-400">SongKoding</span>
           <MessageCircleQuestionMark
             size={25}
             className="mt-2 text-green-600"
           />
         </h3>
+
         <div className="grid md:grid-cols-3 gap-8 px-5">
-          <div className="bg-white rounded-2xl shadow-md p-8 hover:shadow-xl hover:-translate-y-2 transition">
-            <CheckCircle className="mx-auto text-green-500 w-10 h-10 mb-4" />
-            <h4 className="text-lg font-semibold mb-2">Materi Berkualitas</h4>
-            <p className="text-gray-600 text-sm">
+          {/* Card 1 */}
+          <div className="group relative bg-white rounded-2xl shadow-md p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-100/0 to-green-100/30 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+            <CheckCircle className="mx-auto text-green-500 w-10 h-10 mb-4 relative z-10 transition-transform duration-500 group-hover:scale-x-[-1]" />
+            <h4 className="text-lg font-semibold mb-2 relative z-10">
+              Materi Berkualitas
+            </h4>
+            <p className="text-gray-600 text-sm relative z-10">
               Disusun oleh mentor berpengalaman dengan pendekatan praktis.
             </p>
           </div>
-          <div className="bg-white rounded-2xl shadow-md p-8 hover:shadow-xl hover:-translate-y-2 transition">
-            <BookOpen className="mx-auto text-indigo-500 w-10 h-10 mb-4" />
-            <h4 className="text-lg font-semibold mb-2">Berbasis Project</h4>
-            <p className="text-gray-600 text-sm">
+
+          {/* Card 2 */}
+          <div className="group relative bg-white rounded-2xl shadow-md p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-100/0 to-indigo-100/30 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+            <BookOpen className="mx-auto text-indigo-500 w-10 h-10 mb-4 relative z-10 transition-transform duration-500 group-hover:scale-x-[-1]" />
+            <h4 className="text-lg font-semibold mb-2 relative z-10">
+              Berbasis Project
+            </h4>
+            <p className="text-gray-600 text-sm relative z-10">
               Belajar dengan contoh nyata yang siap digunakan di dunia kerja.
             </p>
           </div>
-          <div className="bg-white rounded-2xl shadow-md p-8 hover:shadow-xl hover:-translate-y-2 transition">
-            <Clock className="mx-auto text-yellow-500 w-10 h-10 mb-4" />
-            <h4 className="text-lg font-semibold mb-2">Fleksibel</h4>
-            <p className="text-gray-600 text-sm">
+
+          {/* Card 3 */}
+          <div className="group relative bg-white rounded-2xl shadow-md p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-100/0 to-yellow-100/30 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+            <Clock className="mx-auto text-yellow-400 w-10 h-10 mb-4 relative z-10 transition-transform duration-500 group-hover:scale-x-[-1]" />
+            <h4 className="text-lg font-semibold mb-2 relative z-10">
+              Fleksibel
+            </h4>
+            <p className="text-gray-600 text-sm relative z-10">
               Akses kursus kapan saja, dimana saja sesuai kecepatanmu.
             </p>
           </div>
@@ -268,9 +337,9 @@ export default function Home() {
 
       {/* Kursus Terpopuler */}
       <section className="mt-16">
-        <h2 className="flex justify-center gap-2 text-3xl font-bold text-center mb-12 text-zinc-700">
+        <h2 className="flex justify-center gap-2 text-xl md:text-3xl font-bold text-center mb-8 text-zinc-700">
           Kursus <span className="text-red-600">Terpopuler</span>
-          <TrendingUp size={25} className="mt-2" />
+          <TrendingUp size={25} className="mb-2 md:mt-2" />
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8 px-7">
@@ -280,7 +349,7 @@ export default function Home() {
             .map((course, i) => (
               <div
                 key={i}
-                className="p-6 bg-white rounded-xl shadow hover:shadow-lg hover:-translate-y-2 transition flex flex-col justify-between group"
+                className="p-6 bg-white rounded-xl shadow hover:shadow-lg hover:-translate-y-2 transition flex flex-col justify-between hover:duration-500 duration-500 group"
               >
                 <div>
                   <img
@@ -291,11 +360,11 @@ export default function Home() {
                   <h3 className="font-bold text-lg mb-2 text-zinc-800 group-hover:text-red-600">
                     {course.title}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4">
+                  <p className="text-gray-600 group-hover:text-indigo-600 font-semibold text-sm mb-4">
                     Pelajari {course.title} dari dasar sampai mahir.
                   </p>
 
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                  <div className="flex items-center justify-between text-sm text-gray-500 font-semibold mb-4">
                     <span className="flex items-center gap-1">
                       <Users size={15} />
                       {course.students?.toLocaleString()} siswa
@@ -314,7 +383,7 @@ export default function Home() {
         <div className="text-center mt-12">
           <Link
             to="/courses"
-            className="inline-block px-5 py-2 border-2 border-red-600 hover:bg-red-600 text-red-600 hover:text-white font-semibold rounded-3xl shadow transition"
+            className="inline-block px-5 py-2 border-2 border-red-600 hover:bg-red-600 text-red-600 hover:text-white font-semibold rounded-3xl shadow duration-500 hover:duration-500 transition"
           >
             Lihat Semua Kursus
           </Link>
@@ -322,13 +391,13 @@ export default function Home() {
       </section>
 
       {/* Visi Misi */}
-      <section className="max-w-7xl mx-auto px-6 py-16 space-y-20">
-        <h2 className="flex justify-center gap-2 text-3xl font-bold text-center mb-12 text-zinc-700">
+      <section className="max-w-7xl mx-auto px-6 py-12 space-y-12">
+        <h2 className="flex justify-center gap-2 text-2xl md:text-3xl font-bold text-center mb-12 text-zinc-700">
           Visi Misi <span className="text-yellow-400">SongKoding</span>
           <Rocket size={30} className="mt-2 text-red-600" />
         </h2>
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-white shadow-lg rounded-2xl p-8 hover:shadow-2xl hover:-translate-y-2 transition hover:bg-zinc-400 group">
+          <div className="duration-500 hover:duration-500 tbg-white shadow-lg rounded-2xl p-8 hover:shadow-2xl hover:-translate-y-2 transition hover:bg-zinc-400 group">
             <h3 className="text-2xl font-bold text-zinc-700 mb-4 group-hover:text-white">
               Visi Kami
             </h3>
@@ -337,7 +406,7 @@ export default function Home() {
               orang, tanpa batasan usia maupun latar belakang.
             </p>
           </div>
-          <div className="bg-white shadow-lg rounded-2xl p-8 hover:shadow-2xl hover:-translate-y-2 hover:bg-yellow-400 transition group">
+          <div className="duration-500 hover:duration-500 bg-white shadow-lg rounded-2xl p-8 hover:shadow-2xl hover:-translate-y-2 hover:bg-yellow-400/80 transition group">
             <h3 className="text-2xl font-bold text-zinc-700 mb-4 group-hover:text-white transition">
               Misi Kami
             </h3>
@@ -360,7 +429,7 @@ export default function Home() {
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             {/* Card 1 */}
-            <div className="bg-white rounded-2xl shadow-md p-6 hover:-translate-y-2 hover:shadow-2xl transition hover:bg-red-500 group">
+            <div className="bg-white rounded-2xl shadow-md p-6 hover:-translate-y-2 hover:shadow-2xl transition hover:bg-red-500 group duration-500 hover:duration-500">
               <img
                 src="https://conference.sarccom.org/wp-content/uploads/2019/02/0-4.jpg"
                 alt="Mentor 1"
@@ -380,19 +449,22 @@ export default function Home() {
               {/* icon */}
               <div className="flex justify-center gap-2">
                 <a
-                  href="https://www.youtube.com/@ProgrammerZamanNow" target="_blank"
+                  href="https://www.youtube.com/@ProgrammerZamanNow"
+                  target="_blank"
                   className="p-2 rounded-full transition hover:scale-125 text-gray-500 group-hover:bg-red-400 group-hover:text-white"
                 >
                   <Youtube size={18} />
                 </a>
                 <a
-                  href="https://www.instagram.com/programmerzamannow" target="_blank"
+                  href="https://www.instagram.com/programmerzamannow"
+                  target="_blank"
                   className="p-2 rounded-full transition hover:scale-125 text-gray-500 group-hover:bg-red-400 group-hover:text-white"
                 >
                   <Instagram size={18} />
                 </a>
                 <a
-                  href="https://www.github.com/@ProgrammerZamanNow" target="_blank"
+                  href="https://www.github.com/@ProgrammerZamanNow"
+                  target="_blank"
                   className="p-2 rounded-full transition hover:scale-125 text-gray-500 group-hover:bg-red-400 group-hover:text-white"
                 >
                   <Github size={18} />
@@ -401,7 +473,7 @@ export default function Home() {
             </div>
 
             {/* Card 2 */}
-            <div className="bg-white rounded-2xl shadow-md p-6 hover:-translate-y-2 hover:shadow-2xl transition hover:bg-sky-500 group">
+            <div className="bg-white rounded-2xl shadow-md p-6 hover:-translate-y-2 hover:shadow-2xl transition hover:bg-sky-500 group duration-500 hover:duration-500">
               <img
                 src="https://adam-nugraha225.github.io/AR.PROJECT/dea-afrizal.jpg"
                 alt="Mentor 2"
@@ -421,19 +493,22 @@ export default function Home() {
               {/* icon */}
               <div className="flex justify-center gap-2">
                 <a
-                  href="https://www.youtube.com/@deaafrizal" target="_blank"
+                  href="https://www.youtube.com/@deaafrizal"
+                  target="_blank"
                   className="p-2 rounded-full transition hover:scale-125 text-gray-500 group-hover:bg-sky-400 group-hover:text-white"
                 >
                   <Youtube size={18} />
                 </a>
                 <a
-                  href="https://www.instagram.com/dea.afrizal" target="_blank"
+                  href="https://www.instagram.com/dea.afrizal"
+                  target="_blank"
                   className="p-2 rounded-full transition hover:scale-125 text-gray-500 group-hover:bg-sky-400 group-hover:text-white"
                 >
                   <Instagram size={18} />
                 </a>
                 <a
-                  href="https://www.github.com/deaafrizal" target="_blank"
+                  href="https://www.github.com/deaafrizal"
+                  target="_blank"
                   className="p-2 rounded-full transition hover:scale-125 text-gray-500 group-hover:bg-sky-400 group-hover:text-white"
                 >
                   <Github size={18} />
@@ -442,7 +517,7 @@ export default function Home() {
             </div>
 
             {/* Card 3 */}
-            <div className="bg-white rounded-2xl shadow-md p-6 hover:-translate-y-2 hover:shadow-2xl transition hover:bg-green-500 group">
+            <div className="bg-white rounded-2xl shadow-md p-6 hover:-translate-y-2 hover:shadow-2xl transition hover:bg-green-500 group duration-500 hover:duration-500">
               <img
                 src="https://sandhikagalih.github.io/img/sandhika.jpg"
                 alt="Mentor 3"
@@ -462,19 +537,22 @@ export default function Home() {
               {/* icon */}
               <div className="flex justify-center gap-2">
                 <a
-                  href="https://www.youtube.com/@sandhikagalihWPU" target="_blank"
+                  href="https://www.youtube.com/@sandhikagalihWPU"
+                  target="_blank"
                   className="p-2 rounded-full transition hover:scale-125 text-gray-500 group-hover:bg-green-400 group-hover:text-white"
                 >
                   <Youtube size={18} />
                 </a>
                 <a
-                  href="https://www.instagram.com/sandhikagalih" target="_blank"
+                  href="https://www.instagram.com/sandhikagalih"
+                  target="_blank"
                   className="p-2 rounded-full transition hover:scale-125 text-gray-500 group-hover:bg-green-400 group-hover:text-white"
                 >
                   <Instagram size={18} />
                 </a>
                 <a
-                  href="https://www.github.com/sandhikagalih" target="_blank"
+                  href="https://www.github.com/sandhikagalih"
+                  target="_blank"
                   className="p-2 rounded-full transition hover:scale-125 text-gray-500 group-hover:bg-green-400 group-hover:text-white"
                 >
                   <Github size={18} />
@@ -508,8 +586,8 @@ export default function Home() {
             </p>
             <Link
               to="/courses"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-yellow-400 text-black rounded-lg 
-              shadow hover:bg-yellow-500 font-semibold hover:scale-[0.98] transition"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-yellow-500 text-black rounded-lg 
+              shadow font-semibold hover:scale-[0.98] duration-500 hover:duration-500 hover:bg-yellow-600 transition"
             >
               <UserRoundPlus size={20} />
               Gabung Program
@@ -560,7 +638,7 @@ export default function Home() {
               Akses Semua Kursus dalam{" "}
               <span className="text-yellow-400">Satu Platform</span>
             </h2>
-            <p className="text-lg font-semibold text-gray-400 px-24">
+            <p className="sm:text-lg font-semibold text-gray-400 sm:px-24">
               Kamu bebas belajar semua topik, dari dasar hingga lanjutan. Cukup
               satu platform — gak perlu langganan ke mana-mana. sudah termasuk:
             </p>
@@ -629,8 +707,8 @@ export default function Home() {
                 {/* Tombol */}
                 <Link
                   to={`/package/${pack.id}`}
-                  className="mt-auto flex items-center justify-center gap-2 w-full bg-yellow-400 text-black 
-                  font-semibold px-6 py-2 rounded-lg hover:bg-yellow-500 hover:scale-[0.98] transition"
+                  className="mt-auto flex items-center justify-center gap-2 w-full bg-yellow-500 text-black 
+                  font-semibold px-6 py-2 rounded-lg hover:bg-yellow-600 duration-500 hover:duration-500 hover:scale- transition"
                 >
                   <Crown size={18} />
                   Gabung Sekarang
@@ -688,7 +766,7 @@ export default function Home() {
 
                     <Link
                       to={`/blog/${blog.id}`}
-                      className="flex justify-center gap-2 mt-auto items-center bg-sky-500 hover:bg-sky-600 text-white text-sm py-2 px-4 rounded-lg font-medium transition"
+                      className="flex justify-center gap-2 mt-auto items-center bg-sky-500 hover:bg-sky-600 duration-500 hover:duration-500 hover:scale-[1.02] text-white text-sm py-2 px-4 rounded-lg font-medium transition"
                     >
                       Baca Selangkapnya
                       <ArrowBigRight size={18} />
@@ -703,7 +781,7 @@ export default function Home() {
         <div className="text-center">
           <Link
             to="/courses"
-            className="inline-block px-6 py-3 border-2 border-sky-500 hover:bg-sky-500 text-sky-500 hover:text-white font-semibold rounded-3xl shadow transition"
+            className="inline-block px-6 py-3 border-2 border-sky-500 hover:bg-sky-500 text-sky-500 duration-500 hover:duration-500 hover:text-white font-semibold rounded-3xl shadow transition"
           >
             Lihat Semua Kursus
           </Link>
@@ -729,7 +807,7 @@ export default function Home() {
               </p>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-zinc-800 hover:scale-[0.98] transition"
+                className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-zinc-700 hover:scale-[0.98] duration-500 hover:duration-500 transition"
               >
                 <MessageCircle size={20} />
                 Hubungi Kami
@@ -751,7 +829,7 @@ export default function Home() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="rounded-2xl backdrop-blur-lg bg-white/70 border border-white/40 shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group"
+                className="rounded-2xl backdrop-blur-lg bg-white/70 border border-white/40 shadow-xl transition-all duration-500 hover:duration-500 hover:shadow-2xl hover:-translate-y-1 group"
               >
                 <button
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
